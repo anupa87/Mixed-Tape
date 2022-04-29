@@ -5,11 +5,13 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+
 use function Symfony\Component\String\u;
 
 class MixedTapeController extends AbstractController {
 
-    #[Route('/')]
+    #[Route('/',name:'app_homepage')]
 
     public function homepage(): Response 
     {
@@ -31,11 +33,11 @@ class MixedTapeController extends AbstractController {
             'title' =>'Mixed 90s music',
             'tracks'=> $tracks,
         ]);
-
+      
         // return new Response("Pink Floyd --- Another Brick In the wall");
     }
 
-    #[Route('/browse/{slug}')]
+    #[Route('/browse/{slug}',name:'app_browse')]
     public function browse(string $slug=null): Response 
     {
         $genre = $slug ? u(str_replace('-','',$slug))->title(true):null;
@@ -43,7 +45,8 @@ class MixedTapeController extends AbstractController {
             'genre'=> $genre
         ]);
       
-
         // return new Response("Breakup mixed-tape? Angsty 90s rock? Browse the collection!");
     }
+
+
 }
